@@ -29,6 +29,19 @@ export default class Currency extends Component {
 
         // console.log(effectiveDate, currencyRates);
 
+        //create a currency list
+        // let currencyList = [];
+        // currencyRates.forEach((item) => currencyList.push(item.currency));
+        // console.log(currencyList);
+
+        //currency select
+        const currencySelectOptions = currencyRates.map(item) => {
+            return (
+                <option value={item.code}>{item.currency}</option>
+            )
+        }
+        
+        
         const currencyDisplayList = currencyRates.map((item, index) => {
             return (
                 <div
