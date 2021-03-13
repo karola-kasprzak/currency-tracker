@@ -6,29 +6,48 @@ export default class Currency extends Component {
         super();
 
         this.state = {
-            gitHubJobs: [],
+            currencyRates: [],
+            effectiveDate: "",
+            // currencyList: [],
+            userCurrencies: [],
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         getNBPCurrencyData()
             .then((response) => {
                 this.setState({
-                    gitHubJobs: response.data,
+                    currencyRates: response.data[0].rates,
+                    effectiveDate: response.data[0].effectiveDate,
                 });
             })
             .catch((err) => console.log(err.message));
     }
 
     render() {
-        const { gitHubJobs } = this.state;
+        const { currencyRates, effectiveDate } = this.state;
 
-        console.log(gitHubJobs);
+        // console.log(effectiveDate, currencyRates);
 
-        const gitHubJobsList = gitHubJobs.map((item, index) => {
-            return <div key={`${item.title}${index}`}>{item.title}</div>;
+        const currencyDisplayList = currencyRates.map((item, index) => {
+            return (
+                <div
+                    className="w-75 d-flex justify-content-between"
+                    key={index}
+                >
+                    <span className="pr-3">{item.code}</span>
+                    <span className="pr-3">{item.currency}</span>
+                    <span> {item.mid}</span>
+                </div>
+            );
         });
 
-        return <div>{gitHubJobsList}</div>;
+        return (
+            <div>
+                <p>Rates as of {effectiveDate}</p>
+
+                <div>{currencyDisplayList}</div>
+            </div>
+        );
     }
 }
