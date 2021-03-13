@@ -35,13 +35,14 @@ export default class Currency extends Component {
         // console.log(currencyList);
 
         //currency select
-        const currencySelectOptions = currencyRates.map(item) => {
+        const currencySelectOptions = currencyRates.map((item) => {
             return (
-                <option value={item.code}>{item.currency}</option>
-            )
-        }
-        
-        
+                <option key={item.code} value={item.code}>
+                    {item.currency}
+                </option>
+            );
+        });
+
         const currencyDisplayList = currencyRates.map((item, index) => {
             return (
                 <div
@@ -58,7 +59,14 @@ export default class Currency extends Component {
         return (
             <div>
                 <p>Rates as of {effectiveDate}</p>
-
+                <div className="form-group">
+                    <label htmlFor="currencySelect">
+                        Add a currency to track:
+                    </label>
+                    <select className="form-control" id="currencySelect">
+                        {currencySelectOptions}
+                    </select>
+                </div>
                 <div>{currencyDisplayList}</div>
             </div>
         );

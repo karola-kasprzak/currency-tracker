@@ -1,5 +1,4 @@
 # currency-tracker
 
-# Proxy setup
-
-To allow CORS https://cors-anywhere.herokuapp.com/
+# CORS setup  
+Workaround solution for development only: to allow CORS go to https://cors-anywhere.herokuapp.com/ and click "Request temporary access to the demo server"
