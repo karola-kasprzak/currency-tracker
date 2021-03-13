@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { getNBPCurrencyData } from "./NBPCurrencyAPI";
 
+import { Button } from "react-bootstrap";
+
 export default class Currency extends Component {
     constructor() {
         super();
@@ -12,6 +14,22 @@ export default class Currency extends Component {
             userCurrencies: [],
         };
     }
+
+    addToUserCurrencies = (item) => {
+        let newUserCurrencies = this.state.userCurrencies;
+        newUserCurrencies.push(item);
+        this.setState({
+            userCurrencies: newUserCurrencies,
+        });
+        console.log("added!");
+    };
+
+    clearUserCurrencies = () => {
+        this.setState({
+            userCurrencies: [],
+        });
+        console.log("cleared!");
+    };
 
     componentDidMount() {
         getNBPCurrencyData()
@@ -52,6 +70,9 @@ export default class Currency extends Component {
                     <span className="pr-3">{item.code}</span>
                     <span className="pr-3">{item.currency}</span>
                     <span> {item.mid}</span>
+                    <Button>
+                        <i class="bi-alarm"></i>
+                    </Button>
                 </div>
             );
         });
@@ -66,7 +87,11 @@ export default class Currency extends Component {
                     <select className="form-control" id="currencySelect">
                         {currencySelectOptions}
                     </select>
+                    <Button onClick={this.addToUserCurrencies}>
+                        Add Currency
+                    </Button>
                 </div>
+                <Button onClick={this.clearUserCurrencies}>Remove All</Button>
                 <div>{currencyDisplayList}</div>
             </div>
         );
