@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { getNBPCurrencyData } from "./NBPCurrencyAPI";
-import RemoveModal from "./RemoveModal";
+import RemoveButton from "./RemoveButton/RemoveButton";
 import { Button, Modal } from "react-bootstrap";
 
 export default class Currency extends Component {
@@ -45,7 +45,7 @@ export default class Currency extends Component {
     };
 
     removeUserCurrency = (e) => {
-        let removeCurrencyCode = e.target.getAttribute("code");
+        let removeCurrencyCode = e.target.getAttribute("currencyCode");
         console.log(removeCurrencyCode);
         let newUserCurrencies = this.state.userCurrencies.filter(
             (element) => element.code !== removeCurrencyCode
@@ -99,13 +99,11 @@ export default class Currency extends Component {
                     <span className="pr-3">{item.code}</span>
                     <span className="pr-3">{item.currency}</span>
                     <span> {item.mid}</span>
-                    <Button code={item.code} onClick={this.removeUserCurrency}>
-                        <i
-                            className="fa fa-trash"
-                            aria-hidden="true"
-                            code={item.code}
-                        ></i>
-                    </Button>
+                    <RemoveButton
+                        confirmAction={this.clearUserCurrencies}
+                        currencyCode={item.code}
+                        description=""
+                    />
                 </div>
             );
         });
@@ -113,7 +111,11 @@ export default class Currency extends Component {
         return (
             <div>
                 <p>Rates as of {effectiveDate}</p>
-                <RemoveModal action="delete" />
+                <RemoveButton
+                    confirmAction={this.clearUserCurrencies}
+                    currencyCode=""
+                    description="Remove All"
+                />
                 <div className="form-group">
                     <label htmlFor="currencySelect">
                         Add a currency to track:
