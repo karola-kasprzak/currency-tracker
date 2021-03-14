@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { getNBPCurrencyData } from "./NBPCurrencyAPI";
 import RemoveButton from "./RemoveButton/RemoveButton";
-import { Button, Modal } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 export default class Currency extends Component {
     constructor() {
@@ -37,15 +37,15 @@ export default class Currency extends Component {
         console.log(newUserCurrencies);
     };
 
-    clearUserCurrencies = () => {
+    removeAllUserCurrencies = () => {
         this.setState({
             userCurrencies: [],
         });
         console.log("all cleared!");
     };
 
-    removeUserCurrency = (e) => {
-        let removeCurrencyCode = e.target.getAttribute("currencyCode");
+    removeUserCurrency = (currency) => {
+        let removeCurrencyCode = currency;
         console.log(removeCurrencyCode);
         let newUserCurrencies = this.state.userCurrencies.filter(
             (element) => element.code !== removeCurrencyCode
@@ -77,13 +77,6 @@ export default class Currency extends Component {
     render() {
         const { currencyRates, userCurrencies, effectiveDate } = this.state;
 
-        // console.log(effectiveDate, currencyRates);
-
-        //create a currency list
-        // let currencyList = [];
-        // currencyRates.forEach((item) => currencyList.push(item.currency));
-        // console.log(currencyList);
-
         //currency select
         const currencySelectOptions = currencyRates.map((item) => {
             return (
@@ -100,7 +93,7 @@ export default class Currency extends Component {
                     <span className="pr-3">{item.currency}</span>
                     <span> {item.mid}</span>
                     <RemoveButton
-                        confirmAction={this.clearUserCurrencies}
+                        confirmAction={this.removeUserCurrency}
                         currencyCode={item.code}
                         description=""
                     />
@@ -112,7 +105,7 @@ export default class Currency extends Component {
             <div>
                 <p>Rates as of {effectiveDate}</p>
                 <RemoveButton
-                    confirmAction={this.clearUserCurrencies}
+                    confirmAction={this.removeAllUserCurrencies}
                     currencyCode=""
                     description="Remove All"
                 />
@@ -125,14 +118,16 @@ export default class Currency extends Component {
                         id="currencySelect"
                         onChange={this.handleSelect}
                     >
-                        <option value="null">---</option>
+                        <option value="null">-- Select a currency --</option>
                         {currencySelectOptions}
                     </select>
                     <Button onClick={this.addToUserCurrencies}>
                         Add Currency
                     </Button>
                 </div>
-                <Button onClick={this.clearUserCurrencies}>Remove All</Button>
+                <Button onClick={this.removeAllUserCurrencies}>
+                    Remove All
+                </Button>
                 <div>{currencyDisplayList}</div>
             </div>
         );
