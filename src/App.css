@@ -1,0 +1,12 @@
+.custom-bg {
+        
+        width: 100vw;
+        min-height: 100vh;
+        background-image: url('../src/Assets/Img/jean-philippe-delberghe-75xPHEQBmvA-unsplash.jpg');       
+        background-position: center;
+        background-size: cover;      
+}
+
+.custom-container {
+  background-color: hsla(208, 27%, 28%, 0.164)
+}
