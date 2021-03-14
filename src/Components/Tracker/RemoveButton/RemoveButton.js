@@ -5,7 +5,13 @@ function RemoveButton(props) {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+
+    const handleShow = () => {
+        if (props.isUserCurrencies) {
+            setShow(true);
+        }
+    };
+
     const handleConfirm = () => {
         props.confirmAction(props.currencyCode);
         setShow(false);

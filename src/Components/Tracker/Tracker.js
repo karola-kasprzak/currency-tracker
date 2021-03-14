@@ -105,6 +105,9 @@ export default class Tracker extends Component {
             );
         };
 
+        // let isUserCurrencies = userCurrencies.length > 0 ? true : false;
+        // console.log(isUserCurrencies);
+
         return (
             <div className="mt-4">
                 <p className="text-muted py-3">Rates as of {effectiveDate}</p>
@@ -128,6 +131,9 @@ export default class Tracker extends Component {
                         confirmAction={this.removeAllUserCurrencies}
                         currencyCode=""
                         description="Remove All"
+                        isUserCurrencies={
+                            userCurrencies.length > 0 ? true : false
+                        }
                     />
                 </div>
                 <CurrencyList

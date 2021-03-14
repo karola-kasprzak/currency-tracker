@@ -16,6 +16,7 @@ function CurrencyList(props) {
                     confirmAction={props.remove}
                     currencyCode={item.code}
                     description=""
+                    isUserCurrencies="true"
                 />
             </div>
         );
