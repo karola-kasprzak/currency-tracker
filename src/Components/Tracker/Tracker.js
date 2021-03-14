@@ -110,7 +110,7 @@ export default class Tracker extends Component {
 
         return (
             <div className="mt-4">
-                <p className="text-muted py-3">Rates as of {effectiveDate}</p>
+                <p className="text-dark py-3">Rates as of {effectiveDate}</p>
                 <div className="d-flex">
                     {currencySelectDropdown()}
                     <Button
