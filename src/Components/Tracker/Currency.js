@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { getNBPCurrencyData } from "./NBPCurrencyAPI";
-
-import { Button } from "react-bootstrap";
+import RemoveModal from "./RemoveModal";
+import { Button, Modal } from "react-bootstrap";
 
 export default class Currency extends Component {
     constructor() {
@@ -10,9 +10,9 @@ export default class Currency extends Component {
         this.state = {
             currencyRates: [],
             effectiveDate: "",
-            // currencyList: [],
             userCurrencies: [],
             selectedCurrency: null,
+            showModal: false,
         };
     }
 
@@ -100,7 +100,11 @@ export default class Currency extends Component {
                     <span className="pr-3">{item.currency}</span>
                     <span> {item.mid}</span>
                     <Button code={item.code} onClick={this.removeUserCurrency}>
-                        x
+                        <i
+                            className="fa fa-trash"
+                            aria-hidden="true"
+                            code={item.code}
+                        ></i>
                     </Button>
                 </div>
             );
@@ -109,6 +113,7 @@ export default class Currency extends Component {
         return (
             <div>
                 <p>Rates as of {effectiveDate}</p>
+                <RemoveModal action="delete" />
                 <div className="form-group">
                     <label htmlFor="currencySelect">
                         Add a currency to track:
